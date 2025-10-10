@@ -1,4 +1,6 @@
 import { PrismaClient } from "../src/generated/prisma";
+import { v4 as uuidv4 } from 'uuid';
+
 
 const prisma = new PrismaClient();
 
@@ -104,12 +106,13 @@ async function seedDatabase() {
     // Criar 10 barbearias com nomes e endereços fictícios
     const barbershops = [];
     for (let i = 0; i < 10; i++) {
+      const id = uuidv4();
       const name = creativeNames[i];
       const address = addresses[i];
       const imageUrl = images[i];
 
         const barbershop = await prisma.barbershop.upsert({
-            where: { name:name ?? "" },
+            where: {id},
             update:{},
             create:{
           name:name ?? "sem nome",
