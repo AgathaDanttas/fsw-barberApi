@@ -1,9 +1,27 @@
-import prismaClient from '../prisma';
+import prismaClient  from '../prisma/index';
+
+
+interface CreateUserProps{
+    name: string,
+    email: string,
+
+}
 
 export class CreateUserService{
-    async execute() {
-        console.log("Rota foi chamada");
+    async execute({name,email}:CreateUserProps) {
+       
+        if (!name || !email) {
+            throw new Error("Preencha todos os campos!!");
+        }
 
-        return{ok: true}
+        const user = await prismaClient.user.create({
+            data:{
+                 name,
+                 email
+            
+            },
+        });
+
+        return user;
     }
 }
