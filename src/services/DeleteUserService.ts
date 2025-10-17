@@ -28,7 +28,7 @@ export class DeleteUserService {
         })
 
       
-        return "Usuário deletado com sucesso";
+        return;
     }
 }
 
